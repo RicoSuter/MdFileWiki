@@ -7,6 +7,7 @@ using MyToolkit.Command;
 using MyToolkit.Mvvm;
 using MyToolkit.Serialization;
 using MyToolkit.Storage;
+using MyToolkit.Utilities;
 
 namespace MdFileWiki.ViewModels
 {
@@ -22,24 +23,6 @@ namespace MdFileWiki.ViewModels
             ApplyCommand = new RelayCommand<WikiConfiguration>(Apply);
         }
 
-        private void Apply(WikiConfiguration configuration)
-        {
-            configuration.Apply();
-        }
-
-        private void Remove(WikiConfiguration configuration)
-        {
-            Configurations.Remove(configuration);
-            SelectedConfiguration = Configurations.FirstOrDefault();
-        }
-
-        private void Add()
-        {
-            var configuration = new WikiConfiguration { Name = string.Empty };
-            Configurations.Add(configuration);
-            SelectedConfiguration = configuration;
-        }
-
         /// <summary>Gets or sets the configurations. </summary>
         public ObservableCollection<WikiConfiguration> Configurations { get; private set; }
 
@@ -48,6 +31,12 @@ namespace MdFileWiki.ViewModels
         {
             get { return _selectedConfiguration; }
             set { Set(ref _selectedConfiguration, value); }
+        }
+
+        /// <summary>Gets the application version with build time. </summary>
+        public string ApplicationVersion
+        {
+            get { return GetType().Assembly.GetVersionWithBuildTime(); }
         }
 
         public ICommand UpdateCommand { get; private set; }
@@ -83,6 +72,24 @@ namespace MdFileWiki.ViewModels
         {
             var xml = XmlSerialization.Serialize(Configurations.ToArray());
             ApplicationSettings.SetSetting("Configurations", xml);
+        }
+
+        private void Apply(WikiConfiguration configuration)
+        {
+            configuration.Apply();
+        }
+
+        private void Remove(WikiConfiguration configuration)
+        {
+            Configurations.Remove(configuration);
+            SelectedConfiguration = Configurations.FirstOrDefault();
+        }
+
+        private void Add()
+        {
+            var configuration = new WikiConfiguration { Name = string.Empty };
+            Configurations.Add(configuration);
+            SelectedConfiguration = configuration;
         }
 
         private async Task GenerateHtmlFilesAsync(WikiConfiguration configuration)

@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.Drawing;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Forms;
 using MdFileWiki.ViewModels;
 using MyToolkit.Mvvm;
@@ -64,6 +66,12 @@ namespace MdFileWiki
         public MainWindowModel Model
         {
             get { return (MainWindowModel)Resources["ViewModel"]; }
+        }
+
+        private void OnOpenHyperlink(object sender, RoutedEventArgs e)
+        {
+            var uri = ((Hyperlink)sender).NavigateUri;
+            Process.Start(uri.ToString());
         }
     }
 }

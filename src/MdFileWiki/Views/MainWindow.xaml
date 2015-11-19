@@ -99,7 +99,26 @@
 
         <!-- About -->
         <TabItem Header="About">
-
+            <StackPanel Margin="8">
+                <TextBlock Margin="0,0,0,8" FontSize="14">
+                    <Hyperlink NavigateUri="https://github.com/rsuter/MdFileWiki" Click="OnOpenHyperlink">MdFileWiki</Hyperlink>
+                    has been developed by 
+                    <Hyperlink NavigateUri="http://www.rsuter.com" Click="OnOpenHyperlink">Rico Suter</Hyperlink>.
+                </TextBlock>
+                <TextBlock Margin="0,0,0,8">
+                    Version: <Run Text="{Binding ApplicationVersion, Mode=OneWay}" />
+                    <LineBreak />
+                    License: <Hyperlink NavigateUri="https://github.com/rsuter/MdFileWiki/blob/master/LICENSE.md" Click="OnOpenHyperlink">Ms-PL</Hyperlink>
+                </TextBlock>
+                <TextBlock Text="Components" FontWeight="Bold" Margin="0,4,0,4" />
+                <TextBlock Margin="0,0,0,4">
+                    - <Hyperlink NavigateUri="https://github.com/Knagis/CommonMark.NET" Click="OnOpenHyperlink">CommonMark.NET</Hyperlink>: 
+                        .NET library for converting Markdown documents to HTML.
+                    <LineBreak />
+                    - <Hyperlink NavigateUri="http://mytoolkit.io" Click="OnOpenHyperlink">MyToolkit</Hyperlink>: 
+                        .NET library with MVVM classes, controls and more components.
+                </TextBlock>
+            </StackPanel>
         </TabItem>
     </TabControl>
 </Window>
